@@ -15,6 +15,7 @@
 namespace WPZOOM_Customizer_Reset;
 
 add_action( 'customize_controls_print_scripts', __NAMESPACE__ . '\enqueue_scripts' );
+
 /**
  * Enqueue scripts and localizations.
  *
@@ -35,8 +36,8 @@ function enqueue_scripts() {
 		'zoom-customizer-reset',
 		'_ZoomCustomizerReset',
 		array(
-			'reset'   => __( 'Reset', 'customizer-reset' ),
-			'confirm' => __( "Attention!\n\nThis will remove all customizations ever made via customizer to this theme.\n\nThis action is irreversible.", 'customizer-reset' ),
+			'reset'   => __( "Reset", 'customizer-reset' ),
+			'confirm' => __( "Attention!\n\nClicking the Reset button will remove all customizations made via the customizer to this theme.\n\nThis action is irreversible.", 'customizer-reset' ),
 			'nonce'   => array(
 				'reset' => wp_create_nonce( 'customizer-reset' ),
 			),
@@ -44,7 +45,9 @@ function enqueue_scripts() {
 	);
 }
 
+
 add_action( 'wp_ajax_customizer_reset', __NAMESPACE__ . '\remove_theme_modifications' );
+
 /**
  * Run methods if nonce and not in preview mode
  *
@@ -136,6 +139,7 @@ function remove_theme_modifications() {
 	 * Filter the settings that will be removed.
 	 *
 	 * @param array $settings Theme modifications.
+	 *
 	 * @return array
 	 * @since 1.1.0
 	 */
