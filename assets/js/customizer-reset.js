@@ -2,13 +2,21 @@
 
 jQuery(function ($) {
 	let $container = $('#customize-header-actions');
-	let $button = $('<input type="submit" name="zoom-reset" id="zoom-reset" class="button-secondary button">')
-		.attr('value', _ZoomCustomizerReset.reset)
-		.css({
+
+	// create input button object
+	let $button = $('<input>', {
+		type: 'submit',
+		name: 'zoom-reset', //TODO: zoom-reset to zoom-customizer-reset?
+		id: 'zoom-reset',
+		class: 'button-secondary button',
+		value: _ZoomCustomizerReset.reset,
+		css: {
 			'float': 'right',
 			'margin-right': '10px',
 			'margin-top': '9px'
-		});
+		},
+	})
+
 	$button.on('click', function (event) {
 		event.preventDefault();
 
