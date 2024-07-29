@@ -29,5 +29,10 @@
         "phpcbf": "@php ./vendor/bin/phpcbf",
         "phpcs": "@php ./vendor/bin/phpcs",
         "phpstan": "@php vendor/bin/phpstan analyse"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }

@@ -36,7 +36,7 @@ function enqueue_scripts() {
 		'zoom-customizer-reset',
 		'_ZoomCustomizerReset',
 		array(
-			'reset'   => __( "Reset", 'customizer-reset' ),
+			'reset'   => __( 'Reset', 'customizer-reset' ),
 			'confirm' => __( "Attention!\n\nClicking the Reset button will remove all customizations made via the customizer to this theme.\n\nThis action is irreversible.", 'customizer-reset' ),
 			'nonce'   => array(
 				'reset' => wp_create_nonce( 'customizer-reset' ),
