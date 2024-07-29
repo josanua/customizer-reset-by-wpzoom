@@ -12,3 +12,6 @@
 		2. Used an object for element creation to group attributes together for better readability.
 		3. Change to use 'button' instead of 'input' tag because is generally more flexible and semantically appropriate
 		   for AJAX actions.
+		4. Safely remove event.preventDefault() action.
+		5. Use the fetch API instead of jQuery's $.post, making it a pure JavaScript solution.
+		6. Implement better handling of promises and responses.

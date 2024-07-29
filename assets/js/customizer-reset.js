@@ -1,24 +1,17 @@
-/* global jQuery, _ZoomCustomizerReset, ajaxurl, wp */
+document.addEventListener('DOMContentLoaded', function () {
+	let container = document.getElementById('customize-header-actions');
 
-jQuery(function ($) {
-	let $container = $('#customize-header-actions');
+	// create button type element
+	let button = document.createElement('button');
+	button.type = 'button';
+	button.id = 'zoom-reset';
+	button.className = 'button-secondary button';
+	button.textContent = _ZoomCustomizerReset.reset;
+	button.style.cssText = 'float: right; margin-right: 10px; margin-top: 9px;';
 
-	// create input button object
-	let $button = $('<input>', {
-		type: 'submit',
-		name: 'zoom-reset', //TODO: zoom-reset to zoom-customizer-reset?
-		id: 'zoom-reset',
-		class: 'button-secondary button',
-		value: _ZoomCustomizerReset.reset,
-		css: {
-			'float': 'right',
-			'margin-right': '10px',
-			'margin-top': '9px'
-		},
-	})
 
-	$button.on('click', function (event) {
-		event.preventDefault();
+	button.addEventListener('click', function (event) {
+		console.log('Reset button clicked');
 
 		let data = {
 			wp_customize: 'on',
@@ -26,16 +19,30 @@ jQuery(function ($) {
 			nonce: _ZoomCustomizerReset.nonce.reset
 		};
 
-		const response = confirm(_ZoomCustomizerReset.confirm);
+		let response = confirm(_ZoomCustomizerReset.confirm);
 
 		if (!response) return;
 
-		$button.attr('disabled', 'disabled');
+		button.disabled = true;
 
-		$.post(ajaxurl, data, function () {
-			wp.customize.state('saved').set(true);
-			location.reload();
-		});
+		// Use fetch for AJAX request
+		fetch(ajaxurl, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: new URLSearchParams(data).toString()
+		})
+			.then(response => response.json())
+			.then(data => {
+				if (data.success) {
+					wp.customize.state('saved').set(true);
+					location.reload(); // necessary for a page refresh
+				}
+			})
+			.catch(error => console.error('Customizer Reset Error:', error));
 	});
-	$container.append($button);
+
+	// Append the button to the container
+	container.append(button);
 });
